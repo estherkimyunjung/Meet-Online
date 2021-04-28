@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script>console.log("<%= roomId %>")</script>
+  <script>
+    const ROOM_ID = "<%= roomId %>";
+  </script>
 </head>
 <body>
   <div id='video-grid'>
