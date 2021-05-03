@@ -30,6 +30,24 @@ navigator.mediaDevices
     socket.on("user-connected", (userId) => {
       connectToNewUser(userId, stream);
     });
+
+    // input value
+    let text = $("input");
+    // when press enter send message
+    $("html").keydown((e) => {
+      if (e.which == 13 && text.val().length !== 0) {
+        // console.log(text.val());
+        socket.emit("message", text.val());
+        text.val("");
+      }
+    });
+
+    socket.on("createMessage", (message) => {
+      // console.log("This is comming from server", message);
+      $(".messages").append(
+        `<li class="message"><b>user</b><br/>${message}</li>`
+      );
+    });
   });
 
 peer.on("open", (id) => {
@@ -51,14 +69,3 @@ const addVideoStream = (video, stream) => {
   });
   videoGrid.append(video);
 };
-
-// input value
-let text = $("input");
-// when press enter send message
-$("html").keydown((e) => {
-  if (e.which == 13 && text.val().length !== 0) {
-    console.log(text.val());
-    socket.emit("message", text.val());
-    text.val("");
-  }
-});
